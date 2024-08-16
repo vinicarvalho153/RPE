@@ -1,0 +1,57 @@
+public class FilaCircular {
+    private int[] elementos;
+    private int tamanho;
+    private int frente, tras;
+
+    public FilaCircular(int capacidade) {
+        this.tamanho = capacidade;
+        elementos = new int[capacidade];
+        frente = tras = -1;
+    }
+
+    public void enfileirar(int valor) {
+        if ((tras + 1) % tamanho == frente) {
+            System.out.println("Fila está cheia!");
+            return;
+        }
+
+        // Se a fila estiver vazia
+        if (frente == -1) {
+            frente = 0;
+        }
+
+        tras = (tras + 1) % tamanho;
+        elementos[tras] = valor;
+    }
+
+    public int desenfileirar() {
+        if (frente == -1) {
+            System.out.println("Fila está vazia!");
+            return -1;
+        }
+
+        int valor = elementos[frente];
+
+        // Se houver apenas um elemento
+        if (frente == tras) {
+            frente = tras = -1;
+        } else {
+            frente = (frente + 1) % tamanho;
+        }
+
+        return valor;
+    }
+
+    public void mostrar() {
+        if (frente == -1) {
+            System.out.println("Fila está vazia!");
+            return;
+        }
+
+        System.out.print("Elementos da fila: ");
+        for (int i = frente; i != tras; i = (i + 1) % tamanho) {
+            System.out.print(elementos[i] + " ");
+        }
+        System.out.println(elementos[tras]);
+    }
+}
